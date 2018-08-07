@@ -3,7 +3,7 @@ var argscheck = require('cordova/argscheck');
 var utils = require('cordova/utils');
 var exec = require('cordova/exec');
 var PositionError = require('./PositionError');
-var Position = require('./Position');
+// var Position = require('./Position');
 
 var timers = {}; // list of timers in use
 
@@ -188,6 +188,30 @@ var geolocation = {
     //         exec(null, null, 'Geolocation', 'clearWatch', [id]);
     //     }
     // }
+
+    ,Position = function (coords, timestamp) {
+        if (coords) {
+            this.coords = new Coordinates(coords.latitude, coords.longitude, coords.altitude, coords.accuracy, coords.heading, coords.velocity, coords.altitudeAccuracy);
+        } else {
+            this.coords = new Coordinates();
+        }
+        this.timestamp = (timestamp !== undefined) ? timestamp : new Date().getTime();
+    },
+    Coordinates = function (lat, lng, alt, acc, head, vel, altacc) {
+        this.latitude = lat;
+        this.longitude = lng;
+        this.accuracy = acc;
+        this.altitude = (alt !== undefined ? alt : null);
+        this.heading = (head !== undefined ? head : null);
+        this.speed = (vel !== undefined ? vel : null);
+    
+        if (this.speed === 0 || this.speed === null) {
+            this.heading = NaN;
+        }
+        this.altitudeAccuracy = (altacc !== undefined) ? altacc : null;
+    }
+
+
 };
 
 module.exports = geolocation;

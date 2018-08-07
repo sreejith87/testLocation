@@ -12,7 +12,7 @@ module.exports = {
         };
         var fail = function () {
             if (error) {
-                error(new PositionError(PositionError.PERMISSION_DENIED, 'Illegal Access'));
+                // error(new PositionError(PositionError.PERMISSION_DENIED, 'Illegal Access'));
             }
         };
         exec(win, fail, 'Geolocation', 'getPermission', []);

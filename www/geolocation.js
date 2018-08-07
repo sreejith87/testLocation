@@ -89,10 +89,9 @@ var geolocation = {
             //clearTimeout(timeoutTimer.timer);
             //timeoutTimer.timer = null;
             //var err = new PositionError(e.code, e.message);
-            //if (errorCallback) {
-                //errorCallback(err);
-            //}
-            alert('error' + e);
+            if (errorCallback) {
+                errorCallback(err);
+            }
         };
 
         // exec(win, fail, 'Geolocation', 'getLocation', [options.enableHighAccuracy, options.maximumAge]);

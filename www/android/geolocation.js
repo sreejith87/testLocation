@@ -1,6 +1,6 @@
 var exec = cordova.require('cordova/exec'); // eslint-disable-line no-undef
 var utils = require('cordova/utils');
-var PositionError = require('./PositionError');
+// var PositionError = require('./PositionError');
 
 var pluginToNativeWatchMap = {};
 

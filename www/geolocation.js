@@ -35,17 +35,17 @@ function parseParameters (options) {
 }
 
 // Returns a timeout failure, closed over a specified timeout value and error callback.
-function createTimeout (errorCallback, timeout) {
-    var t = setTimeout(function () {
-        clearTimeout(t);
-        t = null;
-        errorCallback({
-            code: PositionError.TIMEOUT,
-            message: 'Position retrieval timed out.'
-        });
-    }, timeout);
-    return t;
-}
+// function createTimeout (errorCallback, timeout) {
+//     var t = setTimeout(function () {
+//         clearTimeout(t);
+//         t = null;
+//         errorCallback({
+//             code: PositionError.TIMEOUT,
+//             message: 'Position retrieval timed out.'
+//         });
+//     }, timeout);
+//     return t;
+// }
 
 var geolocation = {
     lastPosition: null, // reference to last known (cached) position returned
@@ -92,6 +92,7 @@ var geolocation = {
             //if (errorCallback) {
                 //errorCallback(err);
             //}
+            alert('error' + e);
         };
 
         // exec(win, fail, 'Geolocation', 'getLocation', [options.enableHighAccuracy, options.maximumAge]);

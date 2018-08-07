@@ -2,7 +2,7 @@
 var argscheck = require('cordova/argscheck');
 var utils = require('cordova/utils');
 var exec = require('cordova/exec');
-var PositionError = require('./PositionError');
+// var PositionError = require('./PositionError');
 // var Position = require('./Position');
 
 var timers = {}; // list of timers in use
@@ -209,9 +209,15 @@ var geolocation = {
             this.heading = NaN;
         }
         this.altitudeAccuracy = (altacc !== undefined) ? altacc : null;
+    },
+    PositionError = function (code, message) {
+        this.code = code || null;
+        this.message = message || '';
     }
 
-
 };
+PositionError.prototype.PERMISSION_DENIED = PositionError.PERMISSION_DENIED = 1;
+PositionError.prototype.POSITION_UNAVAILABLE = PositionError.POSITION_UNAVAILABLE = 2;
+PositionError.prototype.TIMEOUT = PositionError.TIMEOUT = 3;
 
 module.exports = geolocation;

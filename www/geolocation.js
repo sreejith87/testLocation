@@ -1,23 +1,3 @@
-/*
- *
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
-*/
 
 var argscheck = require('cordova/argscheck');
 var utils = require('cordova/utils');
@@ -152,60 +132,60 @@ var geolocation = {
      * @param {PositionOptions} options     The options for getting the location data such as frequency. (OPTIONAL)
      * @return String                       The watch id that must be passed to #clearWatch to stop watching.
      */
-    watchPosition: function (successCallback, errorCallback, options) {
-        argscheck.checkArgs('fFO', 'geolocation.getCurrentPosition', arguments);
-        options = parseParameters(options);
+    // watchPosition: function (successCallback, errorCallback, options) {
+    //     argscheck.checkArgs('fFO', 'geolocation.getCurrentPosition', arguments);
+    //     options = parseParameters(options);
 
-        var id = utils.createUUID();
+    //     var id = utils.createUUID();
 
-        // Tell device to get a position ASAP, and also retrieve a reference to the timeout timer generated in getCurrentPosition
-        timers[id] = geolocation.getCurrentPosition(successCallback, errorCallback, options);
+    //     // Tell device to get a position ASAP, and also retrieve a reference to the timeout timer generated in getCurrentPosition
+    //     timers[id] = geolocation.getCurrentPosition(successCallback, errorCallback, options);
 
-        var fail = function (e) {
-            clearTimeout(timers[id].timer);
-            var err = new PositionError(e.code, e.message);
-            if (errorCallback) {
-                errorCallback(err);
-            }
-        };
+    //     var fail = function (e) {
+    //         clearTimeout(timers[id].timer);
+    //         var err = new PositionError(e.code, e.message);
+    //         if (errorCallback) {
+    //             errorCallback(err);
+    //         }
+    //     };
 
-        var win = function (p) {
-            clearTimeout(timers[id].timer);
-            if (options.timeout !== Infinity) {
-                timers[id].timer = createTimeout(fail, options.timeout);
-            }
-            var pos = new Position(
-                {
-                    latitude: p.latitude,
-                    longitude: p.longitude,
-                    altitude: p.altitude,
-                    accuracy: p.accuracy,
-                    heading: p.heading,
-                    velocity: p.velocity,
-                    altitudeAccuracy: p.altitudeAccuracy
-                },
-                p.timestamp
-            );
-            geolocation.lastPosition = pos;
-            successCallback(pos);
-        };
+    //     var win = function (p) {
+    //         clearTimeout(timers[id].timer);
+    //         if (options.timeout !== Infinity) {
+    //             timers[id].timer = createTimeout(fail, options.timeout);
+    //         }
+    //         var pos = new Position(
+    //             {
+    //                 latitude: p.latitude,
+    //                 longitude: p.longitude,
+    //                 altitude: p.altitude,
+    //                 accuracy: p.accuracy,
+    //                 heading: p.heading,
+    //                 velocity: p.velocity,
+    //                 altitudeAccuracy: p.altitudeAccuracy
+    //             },
+    //             p.timestamp
+    //         );
+    //         geolocation.lastPosition = pos;
+    //         successCallback(pos);
+    //     };
 
-        exec(win, fail, 'Geolocation', 'addWatch', [id, options.enableHighAccuracy]);
+    //     exec(win, fail, 'Geolocation', 'addWatch', [id, options.enableHighAccuracy]);
 
-        return id;
-    },
+    //     return id;
+    // },
     /**
      * Clears the specified heading watch.
      *
      * @param {String} id       The ID of the watch returned from #watchPosition
      */
-    clearWatch: function (id) {
-        if (id && timers[id] !== undefined) {
-            clearTimeout(timers[id].timer);
-            timers[id].timer = false;
-            exec(null, null, 'Geolocation', 'clearWatch', [id]);
-        }
-    }
+    // clearWatch: function (id) {
+    //     if (id && timers[id] !== undefined) {
+    //         clearTimeout(timers[id].timer);
+    //         timers[id].timer = false;
+    //         exec(null, null, 'Geolocation', 'clearWatch', [id]);
+    //     }
+    // }
 };
 
 module.exports = geolocation;
